@@ -80,7 +80,7 @@ def result():
 
 
 
-txtsp(f"{na},Enter l For Log r For Retrive- s Show Results")
+txtsp(f"{na},Enter L For Log R For Retrive S Show Results")
 uc = input()
 
 if uc.capitalize() == "L":
