@@ -40,19 +40,55 @@ def log1():
     txtsp("Thank You")
     
 def retrive():
-    q = "SELECT * FROM allclient WHERE name = %s"
+    q = "SELECT food,datentime FROM allclient WHERE name = %s"
     name = (na,)
     mycursor.execute(q,name)
     records = mycursor.fetchall()
     for i in records:
         print(i)
         
-txtsp(f"{na},Enter l For Log r For Retrive-")
+def result():
+    junk = ("Pizza", "Burger", "Sweets")
+
+    q1 = "SELECT COUNT(srno) FROM allclient WHERE name = %s and (food = %s OR food = %s OR food = %s)"
+    val = (na, junk[0], junk[1], junk[2])
+    mycursor.execute(q1, val)
+    records = mycursor.fetchall()
+    q2 = "SELECT COUNT(srno) FROM allclient WHERE name = %s and food != %s AND food != %s AND food != %s"
+    val1 = (na, junk[0], junk[1], junk[2])
+    mycursor.execute(q2, val1)
+    records1 = mycursor.fetchall()
+    for j in records:
+        junkf = int(j[0])
+        # print(junkf)
+    for h in records1:
+        healthyf = int(h[0])
+        # print(healthyf)
+
+    if healthyf > junkf:
+        txtsp("Your Diet Is Going Well, Keep Going")
+    else:
+        txtsp("OOh! , Please Start Eating Healthy")
+
+    txtsp("These is Your Result")
+    from matplotlib import pyplot as plt
+    l1 = [junkf, healthyf]
+    l2 = ["Junk","Healthy"]
+    plt.pie(l1,labels = l2 ,autopct='%1.2f%%')
+    plt.legend()
+    plt.show()
+
+
+
+txtsp(f"{na},Enter l For Log r For Retrive- s Show Results")
 uc = input()
-if uc == "l":
+
+if uc.capitalize() == "L":
     log1()
-elif uc == "r":
+elif uc.capitalize() == "R":
     retrive()
+elif uc.capitalize() == "S":
+    result()
 else:
     txtsp("Enter Valid Data")
 
